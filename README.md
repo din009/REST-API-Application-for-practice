@@ -1,6 +1,9 @@
 # REST-API-Application-for-practice
 This is an simple Application workes using JSON file. We can inivote the API activity which will access the content in the JSON file.
 
+# PreRequest:
+1. Install Node.js using the link https://nodejs.org/en/download/
+
 # Steps to be Followed:
 1. Download this repo in you Local system.
 2. Open the command promt from your local system and go to the folder Location on this application.
