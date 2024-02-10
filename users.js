@@ -1,23 +1,42 @@
+const { getEmployees,createEmployees } = require("./db/employees");
+
 const express = require("express");
-const dummyData = require("./user.json");
-const fs = require("fs");
+
+// const dummyData = require("./user.json");
+// const fs = require("fs");
 // const bodyParser = require('body-parser');
 
 const router = express.Router();
 
 // router.use(bodyParser.json);
-router.get("/", (req, res) => {
-  res.json(dummyData);
+router.get("/", async (req, res) => {
+  const employees = await getEmployees();
+  if(!employees){
+    res.status = 500;
+    res.json({message:"Connection error"})
+  }else{
+    res.status = 200;
+  }
+  res.json(employees);
 });
-router.post("/", (req, res) => {
-  res.json(dummyData);
+router.post("/", async(req, res) => {
+  const createEmp = await createEmployees(req.body)
+  res.json(createEmp);
 });
 
 
-router.get("/:user_id", (req, res) => {
+router.get("/:user_id", async(req, res) => {
   const user_id = req.params.user_id;
-  if (dummyData.length <= user_id) return res.json({ message: "User not found" });
-  res.json(dummyData[user_id]);
+  const employees = await getEmployees(user_id);
+  if(!employees){
+    res.status = 402;
+    res.json({message:"No Data Found"})
+  } else{
+    res.status = 200;
+  }
+  res.json(employees);
+  // if (dummyData.length <= user_id) return res.json({ message: "User not found" });
+  // res.json(dummyData[user_id]);
 });
 
 router.post("/:user_id", (req, res) => {
